@@ -22,7 +22,7 @@ public class Category {
     }
 
 
-    public void setName(String name) {
+    public void validateName(String name) {
         if (name != null && !name.isBlank() && name.length() > 0 && name.length() <= 50 && name.matches("^[a-zA-Z]+$")) {
             this.name = name;
         } else {
