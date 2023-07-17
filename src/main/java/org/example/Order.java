@@ -44,7 +44,7 @@ public class Order {
         return orderSum;
     }
 
-    public void setOrderSum(double orderSum) {
+    public void validateOrderSum(double orderSum) {
         if (orderSum > 0) {
             this.orderSum = orderSum;
         } else {
@@ -56,7 +56,7 @@ public class Order {
         return clientName;
     }
 
-    public void setClientName(String clientName) {
+    public void validateClientName(String clientName) {
         if (clientName != null && !clientName.isBlank() && clientName.length() > 0 && clientName.length() <= 50 && clientName.matches("^[a-zA-Z]+$")) {
             this.clientName = clientName;
         } else {
@@ -68,7 +68,7 @@ public class Order {
         return clientSurname;
     }
 
-    public void setClientSurname(String clientSurname) {
+    public void validateClientSurname(String clientSurname) {
         if (clientSurname != null && !clientSurname.isBlank() && clientSurname.length() > 0 && clientSurname.length() <= 50 && clientSurname.matches("^[a-zA-Z]+$")) {
             this.clientSurname = clientSurname;
         } else {
@@ -80,7 +80,7 @@ public class Order {
         return clientAddress;
     }
 
-    public void setClientAddress(String clientAddress) {
+    public void validateClientAddress(String clientAddress) {
         if (clientAddress != null && !clientAddress.isBlank() && clientAddress.length() > 0 && clientAddress.length() <= 50) {
             this.clientAddress = clientAddress;
         } else {
@@ -100,7 +100,7 @@ public class Order {
         return products;
     }
 
-    public void setProducts(Map<Product, Integer> products) {
+    public void validateProducts(Map<Product, Integer> products) {
         if (products != null) {
             this.products = products;
         } else {
