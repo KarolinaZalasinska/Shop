@@ -1,9 +1,29 @@
 public sealed class Product permits ProductService {
-    protected int productId;
+    protected int productId = 1;
     protected double price;
     protected String name;
     protected Category category;
     protected int quantity;
+
+    protected int getProductId() {
+        return productId;
+    }
+
+    protected double getPrice() {
+        return price;
+    }
+
+    protected String getName() {
+        return name;
+    }
+
+    protected Category getCategory() {
+        return category;
+    }
+
+    protected int getQuantity() {
+        return quantity;
+    }
 
     protected boolean validatePrice(double price) {
         return price > 0;
