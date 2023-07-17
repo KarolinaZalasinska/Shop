@@ -2,7 +2,7 @@ public class Product {
     protected int productId;
     protected double price;
     protected String name;
-    Category category;
+    protected Category category;
     protected int quantity;
 
     protected boolean validatePrice(double price) {
