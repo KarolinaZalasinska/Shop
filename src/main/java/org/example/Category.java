@@ -18,10 +18,16 @@ public class Category {
     }
 
     public String getName() {
-        return name;
+       return name;
     }
 
+
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.isBlank() && name.length() > 0 && name.length() <= 50 && name.matches("^[a-zA-Z]+$")) {
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("Nazwa kategorii musi zawierać od 1 do 50 liter i nie może być pusta.");
+        }
     }
 }
+
