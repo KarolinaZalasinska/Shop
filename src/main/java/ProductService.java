@@ -12,5 +12,15 @@ public final class ProductService extends Product {
         productSet.add(this);
     }
 
+    public void showAllProducts() {
+        System.out.println(productSet);
+    }
 
+    public void showProduct(Product product) {
+        System.out.println(product.getProductId());
+        System.out.println(product.getName());
+        System.out.println(product.getPrice());
+        System.out.println(product.getQuantity());
+        System.out.println(product.getCategory());
+    }
 }
