@@ -45,7 +45,11 @@ public class Order {
     }
 
     public void setOrderSum(double orderSum) {
-        this.orderSum = orderSum;
+        if (orderSum > 0) {
+            this.orderSum = orderSum;
+        } else {
+            throw new IllegalArgumentException("Suma zamówienia musi być większa od 0.");
+        }
     }
 
     public String getClientName() {
@@ -53,7 +57,11 @@ public class Order {
     }
 
     public void setClientName(String clientName) {
-        this.clientName = clientName;
+        if (clientName != null && !clientName.isBlank() && clientName.length() > 0 && clientName.length() <= 50 && clientName.matches("^[a-zA-Z]+$")) {
+            this.clientName = clientName;
+        } else {
+            throw new IllegalArgumentException("Imię klienta musi zawierać od 1 do 50 liter i nie może być puste.");
+        }
     }
 
     public String getClientSurname() {
@@ -61,7 +69,11 @@ public class Order {
     }
 
     public void setClientSurname(String clientSurname) {
-        this.clientSurname = clientSurname;
+        if (clientSurname != null && !clientSurname.isBlank() && clientSurname.length() > 0 && clientSurname.length() <= 50 && clientSurname.matches("^[a-zA-Z]+$")) {
+            this.clientSurname = clientSurname;
+        } else {
+            throw new IllegalArgumentException("Nazwisko klienta musi zawierać od 1 do 50 liter i nie może być puste.");
+        }
     }
 
     public String getClientAddress() {
@@ -69,7 +81,11 @@ public class Order {
     }
 
     public void setClientAddress(String clientAddress) {
-        this.clientAddress = clientAddress;
+        if (clientAddress != null && !clientAddress.isBlank() && clientAddress.length() > 0 && clientAddress.length() <= 50) {
+            this.clientAddress = clientAddress;
+        } else {
+            throw new IllegalArgumentException("Adres klienta musi zawierać od 1 do 50 znaków i nie może być pusty.");
+        }
     }
 
     public OrderStatus getOrderStatus() {
@@ -85,6 +101,10 @@ public class Order {
     }
 
     public void setProducts(Map<Product, Integer> products) {
-        this.products = products;
+        if (products != null) {
+            this.products = products;
+        } else {
+            throw new IllegalArgumentException("Lista produktów nie może być pusta.");
+        }
     }
 }
