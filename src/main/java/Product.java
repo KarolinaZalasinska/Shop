@@ -1,4 +1,4 @@
-public class Product {
+public sealed class Product permits ProductService {
     protected int productId;
     protected double price;
     protected String name;
