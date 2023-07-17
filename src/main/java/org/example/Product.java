@@ -1,3 +1,5 @@
+package org.example;
+
 public sealed class Product permits ProductService {
     protected int productId = 1;
     protected double price;
