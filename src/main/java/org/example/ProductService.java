@@ -20,7 +20,7 @@ public class ProductService extends Product {
             products.add(product);
             nextProductId++;
         } else {
-            throw new IllegalArgumentException("Nieprawidłow")
+            throw new IllegalArgumentException("Nieprawidłowa cena, nazwa, kategoria lub ilość");
         }
     }
 
