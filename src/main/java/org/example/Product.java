@@ -1,4 +1,8 @@
-public sealed class Product permits ProductService {
+package org.example;
+
+import org.example.Category;
+
+public class Product {
     protected int productId;
     protected double price;
     protected String name;
