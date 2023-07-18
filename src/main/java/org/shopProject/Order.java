@@ -2,108 +2,96 @@ package org.shopProject;
 
 import java.util.Map;
 
-public class Order {
-    private int orderID;
-    private String orderNumber;
+public final class Order {
+    private final int orderID;
+    private static int nextOrderId = 1;
+    private final String orderNumber;
     private double orderSum;
-    private String clientName;
-    private String clientSurname;
-    private String clientAddress;
-    private OrderStatus orderStatus;
-    private Map<Product, Integer> products;
+    private final String clientName;
+    private final String clientSurname;
+    private final String clientAddress;
+    private final OrderStatus orderStatus;
+    private final Map<Product, Integer> products;
 
     public Order(int orderID, String orderNumber, double orderSum, String clientName, String clientSurname,
                  String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
-        this.orderID = orderID;
+        this.orderID = nextOrderId++;
         this.orderNumber = orderNumber;
+        validateOrderSum(orderSum);
         this.orderSum = orderSum;
+        validateClientName(clientName);
         this.clientName = clientName;
+        validateClientSurname(clientSurname);
         this.clientSurname = clientSurname;
+        validateClientAddress(clientAddress);
         this.clientAddress = clientAddress;
         this.orderStatus = orderStatus;
+        validateProducts(products);
         this.products = products;
     }
 
-    public int getOrderID() {
+    private int getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
-    }
-
-    public String getOrderNumber() {
+    private String getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
-    public double getOrderSum() {
+    private double getOrderSum() {
         return orderSum;
     }
 
-    public void validateOrderSum(double orderSum) {
-        if (orderSum > 0) {
-            this.orderSum = orderSum;
-        } else {
-            throw new IllegalArgumentException("Suma zamówienia musi być większa od 0.");
+    private void validateOrderSum(double orderSum) {
+        if (!(orderSum > 0)) {
+            throw new IllegalArgumentException("Suma zamówienia powinna być większa od 0.");
         }
     }
 
-    public String getClientName() {
+    private String getClientName() {
         return clientName;
     }
 
-    public void validateClientName(String clientName) {
-        if (clientName != null && !clientName.isBlank() && clientName.length() > 0 && clientName.length() <= 50 && clientName.matches("^[a-zA-Z]+$")) {
-            this.clientName = clientName;
-        } else {
+    private void validateClientName(String clientName) {
+        if (clientName == null || clientName.isBlank() || clientName.length() <= 0 || clientName.length() > 50
+                || !clientName.matches("^[a-zA-Z]+$")) {
             throw new IllegalArgumentException("Imię klienta musi zawierać od 1 do 50 liter i nie może być puste.");
         }
     }
 
-    public String getClientSurname() {
+    private String getClientSurname() {
         return clientSurname;
     }
 
-    public void validateClientSurname(String clientSurname) {
-        if (clientSurname != null && !clientSurname.isBlank() && clientSurname.length() > 0 && clientSurname.length() <= 50 && clientSurname.matches("^[a-zA-Z]+$")) {
-            this.clientSurname = clientSurname;
-        } else {
+    private void validateClientSurname(String clientSurname) {
+        if (clientSurname == null || clientSurname.isBlank() || clientSurname.length() <= 0
+                || clientSurname.length() > 50 || !clientSurname.matches("^[a-zA-Z]+$")) {
             throw new IllegalArgumentException("Nazwisko klienta musi zawierać od 1 do 50 liter i nie może być puste.");
         }
     }
 
-    public String getClientAddress() {
+    private String getClientAddress() {
         return clientAddress;
     }
 
-    public void validateClientAddress(String clientAddress) {
-        if (clientAddress != null && !clientAddress.isBlank() && clientAddress.length() > 0 && clientAddress.length() <= 50) {
-            this.clientAddress = clientAddress;
-        } else {
+    private void validateClientAddress(String clientAddress) {
+        if (clientAddress == null || clientAddress.isBlank() || clientAddress.length() == 0
+                || clientAddress.length() > 50) {
             throw new IllegalArgumentException("Adres klienta musi zawierać od 1 do 50 znaków i nie może być pusty.");
         }
     }
 
-    public OrderStatus getOrderStatus() {
+    private OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public Map<Product, Integer> getProducts() {
+    private Map<Product, Integer> getProducts() {
         return products;
     }
 
-    public void validateProducts(Map<Product, Integer> products) {
-        if (products != null) {
-            this.products = products;
-        } else {
+    private void validateProducts(Map<Product, Integer> products) {
+        if (products == null) {
             throw new IllegalArgumentException("Lista produktów nie może być pusta.");
         }
     }

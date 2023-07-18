@@ -1,28 +1,27 @@
 package org.shopProject;
 import java.util.regex.Pattern;
 
-public class Category {
+public final class Category {
     private final int categoryID;
     private final String name;
     private static int nextCategoryId = 1;
 
-    public Category(String name) {
+    private Category(String name) {
         this.categoryID = nextCategoryId++;
-        this.name = validateAndSetCategoryName(name);
+        validateCategoryName(name);
+        this.name = name;
     }
 
-    public int getCategoryID() {
+    private int getCategoryID() {
         return categoryID;
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
-    private final String validateAndSetCategoryName(String name) {
-        if (name != null && !name.isBlank() && name.length() > 0 && name.length() <= 50 && Pattern.matches("^[a-zA-Z]+$", name)) {
-            return name;
-        } else {
+    private void validateCategoryName(String name) {
+        if (name == null || name.isBlank() || name.length() == 0 || name.length() > 50 || !Pattern.matches("^[a-zA-Z]+$", name)) {
             throw new IllegalArgumentException("Nieprawidłowa nazwa kategorii.");
         }
     }
