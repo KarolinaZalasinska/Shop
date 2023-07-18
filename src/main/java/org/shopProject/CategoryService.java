@@ -17,6 +17,7 @@ public final class CategoryService extends Category {
             Category category = new Category(nextCategoryId, categoryName);
             categories.add(category);
             nextCategoryId++;
+            System.out.println("Dodano kategorię: " + categoryName + " o ID: " + category.getCategoryID());
         } else {
             throw new IllegalArgumentException("Nieprawidłowa nazwa kategorii.");
         }
@@ -26,9 +27,11 @@ public final class CategoryService extends Category {
         categories = categories.stream()
                 .filter(category -> category.getCategoryID() != categoryID)
                 .collect(Collectors.toList());
+        System.out.println("Usunięto kategorię o ID: " + categoryID);
     }
 
     public List<Category> getAllCategories() {
+        System.out.println("Lista kategorii:");
         return categories;
     }
 
