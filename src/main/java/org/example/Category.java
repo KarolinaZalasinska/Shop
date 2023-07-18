@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.regex.Pattern;
+
 public class Category {
     private int categoryID;
     private String name;
@@ -22,12 +24,8 @@ public class Category {
     }
 
 
-    public void validateName(String name) {
-        if (name != null && !name.isBlank() && name.length() > 0 && name.length() <= 50 && name.matches("^[a-zA-Z]+$")) {
-            this.name = name;
-        } else {
-            throw new IllegalArgumentException("Nazwa kategorii musi zawierać od 1 do 50 liter i nie może być pusta.");
-        }
+    public boolean validateCategoryName(String name) {
+        return name != null && !name.isBlank() && name.length() > 0 && name.length() <= 50 && Pattern.matches("^[a-zA-Z]+$", name);
     }
 }
 
