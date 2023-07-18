@@ -1,4 +1,4 @@
-package org.example;
+package org.shopProject;
 
 import java.util.regex.Pattern;
 

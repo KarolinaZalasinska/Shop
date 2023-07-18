@@ -1,6 +1,4 @@
-package org.example;
-
-import org.example.Category;
+package org.shopProject;
 
 public class Product {
     protected int productId;
