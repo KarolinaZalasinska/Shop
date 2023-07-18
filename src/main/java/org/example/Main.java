@@ -30,10 +30,12 @@ public class Main {
     }
 
     public void showOrderSubMenu() {
-
+        boolean back = false;
+        while (!back) {
     }
 
     public void showCategorySubMenu() {
+        boolean back = false;
 
     }
 
@@ -43,7 +45,8 @@ public class Main {
             System.out.println("[1] Lista produktów");
             System.out.println("[2] Konkretny produkt");
             System.out.println("[3] Dodaj produkt");
-            System.out.println("[4] Cofnij");
+            System.out.println("[4] Usuń produkt ");
+            System.out.println("[5] Cofnij");
 
             String choice = scanner.next();
             String[] words = choice.split(",");
@@ -56,9 +59,12 @@ public class Main {
                     productService.getProductById(Integer.parseInt(words[1]));
                 }
                 case 3 -> {
-                    productService.addProduct(words[1], words[2], words[3], words[4]);
+                    productService.addProduct(Double.parseDouble(words[1]), words[2], words[3], Integer.parseInt(words[4]));
                 }
-                case 4 -> back = true;
+                case 4 -> {
+                    productService.removeProduct(Integer.parseInt(words[1]);
+                }
+                case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
 
