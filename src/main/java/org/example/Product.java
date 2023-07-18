@@ -1,48 +1,57 @@
 package org.example;
 
-public sealed class Product permits ProductService {
-    protected int productId = 1;
-    protected double price;
-    protected String name;
-    protected Category category;
-    protected int quantity;
+public class Product {
+    private final int productId;
+    private final double price;
+    private final String name;
+    private final Category category;
+    private final int quantity;
 
-    protected int getProductId() {
+    public Product(int productId, double price, String name, Category category, int quantity) {
+        this.productId = productId;
+        this.price = price;
+        this.name = name;
+        this.category = category;
+        this.quantity = quantity;
+    }
+
+    public int getProductId() {
         return productId;
     }
 
-    protected double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
-    protected Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    protected int getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    protected boolean validatePrice(double price) {
+    public boolean validatePrice(double price) {
         return price > 0;
     }
 
-    protected boolean validateName(String name) {
+    public boolean validateName(String name) {
         return name != null &&
-                !name.isBlank() && name.length() > 0 &&
+                !name.isBlank() &&
+                name.length() > 0 &&
                 name.length() < 50 &&
                 name.chars().allMatch(Character::isLetter);
     }
 
-    protected boolean validateCategory(Category category) {
+    public boolean validateCategory(Category category) {
         return category != null;
     }
 
-    protected boolean validateQuantity(int quantity) {
+    public boolean validateQuantity(int quantity) {
         return quantity > 0;
     }
 }
