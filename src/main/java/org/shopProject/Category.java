@@ -2,7 +2,7 @@ package org.shopProject;
 
 import java.util.regex.Pattern;
 
-public class Category {
+public final class Category {
     private int categoryID;
     private String name;
 

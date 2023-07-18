@@ -2,7 +2,7 @@ package org.shopProject;
 
 import java.util.Map;
 
-public class Order {
+public final class Order {
     private int orderID;
     private String orderNumber;
     private double orderSum;
