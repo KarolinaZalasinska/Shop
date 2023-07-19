@@ -1,10 +1,12 @@
 package org.example;
 
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private ProductService productService;
+    private Category category;
 
     public void showMainMenu() {
         boolean exit = false;
@@ -32,7 +34,31 @@ public class Main {
     public void showOrderSubMenu() {
         boolean back = false;
         while (!back) {
+            System.out.println("[1] Lista zamówień");
+            System.out.println("[2] Konkretne zamówienie");
+            System.out.println("[3] Dodaj zamówienie");
+            System.out.println("[4] Usuń zamówienie");
+            System.out.println("[5] Edytuj zamówienie ");
+            System.out.println("[6] Zmień status zamówienia ");
+            System.out.println("[7] Pokaż status zamówienia");
+            System.out.println("[8] Dodaj produkt do zamówienia");
+            System.out.println("[9] Cofnij");
 
+            String choice = scanner.next();
+            String[] words = choice.split(",");
+            scanner.nextLine();
+
+            switch (Integer.parseInt(words[0])) {
+                case 1 -> ;
+                case 2 -> ;
+                case 3 -> ;
+                case 5 -> ;
+                case 6 -> ;
+                case 7 -> ;
+                case 8 -> ;
+                case 9 -> back = true;
+                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
+            }
         }
     }
 
@@ -47,7 +73,6 @@ public class Main {
 
             String choice = scanner.next();
             String[] words = choice.split(",");
-
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
@@ -65,9 +90,9 @@ public class Main {
         boolean back = false;
         while (!back) {
             System.out.println("[1] Lista produktów");
-            System.out.println("[2] Konkretny produkt");
-            System.out.println("[3] Dodaj produkt");
-            System.out.println("[4] Usuń produkt ");
+            System.out.println("[2,ProductId] Konkretny produkt");
+            System.out.println("[3,Price,Name,Category,Quantity] Dodaj produkt");
+            System.out.println("[4,ProductId] Usuń produkt ");
             System.out.println("[5] Cofnij");
 
             String choice = scanner.next();
