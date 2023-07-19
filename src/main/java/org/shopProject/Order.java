@@ -43,7 +43,7 @@ public final class Order {
         return orderSum;
     }
 
-    private void validateOrderSum(double orderSum) {
+    private void validateOrderSum(final double orderSum) {
         if (!(orderSum > 0)) {
             throw new IllegalArgumentException("Suma zamówienia powinna być większa od 0.");
         }
@@ -53,10 +53,10 @@ public final class Order {
         return clientName;
     }
 
-    private void validateClientName(String clientName) {
+    private void validateClientName(final String clientName) {
         if (clientName == null || clientName.isBlank() || clientName.length() <= 0 || clientName.length() > 50
                 || !clientName.matches("^[a-zA-Z]+$")) {
-            throw new IllegalArgumentException("Imię klienta musi zawierać od 1 do 50 liter i nie może być puste.");
+            throw new IllegalArgumentException("Imię klienta powinno zawierać od 1 do 50 liter i nie może być puste.");
         }
     }
 
@@ -64,10 +64,10 @@ public final class Order {
         return clientSurname;
     }
 
-    private void validateClientSurname(String clientSurname) {
+    private void validateClientSurname(final String clientSurname) {
         if (clientSurname == null || clientSurname.isBlank() || clientSurname.length() <= 0
                 || clientSurname.length() > 50 || !clientSurname.matches("^[a-zA-Z]+$")) {
-            throw new IllegalArgumentException("Nazwisko klienta musi zawierać od 1 do 50 liter i nie może być puste.");
+            throw new IllegalArgumentException("Nazwisko klienta powinno zawierać od 1 do 50 liter i nie może być puste.");
         }
     }
 
@@ -75,10 +75,10 @@ public final class Order {
         return clientAddress;
     }
 
-    private void validateClientAddress(String clientAddress) {
+    private void validateClientAddress(final String clientAddress) {
         if (clientAddress == null || clientAddress.isBlank() || clientAddress.length() == 0
                 || clientAddress.length() > 50) {
-            throw new IllegalArgumentException("Adres klienta musi zawierać od 1 do 50 znaków i nie może być pusty.");
+            throw new IllegalArgumentException("Adres klienta powinien zawierać od 1 do 50 znaków i nie może być pusty.");
         }
     }
 
@@ -90,7 +90,7 @@ public final class Order {
         return products;
     }
 
-    private void validateProducts(Map<Product, Integer> products) {
+    private void validateProducts(final Map<Product, Integer> products) {
         if (products == null) {
             throw new IllegalArgumentException("Lista produktów nie może być pusta.");
         }

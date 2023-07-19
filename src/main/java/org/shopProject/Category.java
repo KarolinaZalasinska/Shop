@@ -20,7 +20,7 @@ public final class Category {
         return name;
     }
 
-    private void validateCategoryName(String name) {
+    private void validateCategoryName(final String name) {
         if (name == null || name.isBlank() || name.length() == 0 || name.length() > 50 || !Pattern.matches("^[a-zA-Z]+$", name)) {
             throw new IllegalArgumentException("Nieprawidłowa nazwa kategorii.");
         }
