@@ -7,6 +7,7 @@ public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private ProductService productService;
     private Category category;
+    private Order order;
 
     public void showMainMenu() {
         boolean exit = false;
@@ -36,11 +37,11 @@ public class Main {
         while (!back) {
             System.out.println("[1] Lista zamówień");
             System.out.println("[2] Konkretne zamówienie");
-            System.out.println("[3] Dodaj zamówienie");
-            System.out.println("[4] Usuń zamówienie");
+            System.out.println("[3,Order] Dodaj zamówienie");
+            System.out.println("[4,OrderNumber] Usuń zamówienie");
             System.out.println("[5] Edytuj zamówienie ");
-            System.out.println("[6] Zmień status zamówienia ");
-            System.out.println("[7] Pokaż status zamówienia");
+            System.out.println("[6,OrderNumber,OrderStatus] Zmień status zamówienia ");
+            System.out.println("[7,orderNumber] Pokaż status zamówienia");
             System.out.println("[8] Dodaj produkt do zamówienia");
             System.out.println("[9] Cofnij");
 
@@ -49,16 +50,19 @@ public class Main {
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
-                case 1 -> ;
+                case 1 -> Order.getAllOrders;
                 case 2 -> ;
-                case 3 -> ;
+                case 3 -> Order.addOrder(words[1]);
+                case 4 -> Order.removeOrderByNumber(words[1]);
                 case 5 -> ;
-                case 6 -> ;
-                case 7 -> ;
+                case 6 -> Order.changeOrderStatus(words[1], words[2]);
+                case 7 -> Order.showOrderStatus(words[1]);
                 case 8 -> ;
                 case 9 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
+
+            System.out.println();
         }
     }
 
@@ -66,9 +70,9 @@ public class Main {
         boolean back = false;
         while (!back) {
             System.out.println("[1] Lista kategorii");
-            System.out.println("[2] Konkretna kategoria");
-            System.out.println("[3] Dodaj kategorie");
-            System.out.println("[4] Usuń kategorie");
+            System.out.println("[2,categoryID] Konkretna kategoria");
+            System.out.println("[3,name] Dodaj kategorie");
+            System.out.println("[4,categoryID] Usuń kategorie");
             System.out.println("[5] Cofnij");
 
             String choice = scanner.next();
@@ -76,13 +80,15 @@ public class Main {
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
-                case 1 -> ;
-                case 2 -> ;
-                case 3 -> ;
-                case 4 -> ;
+                case 1 -> Category.getAllCategories;
+                case 2 -> Category.getCategoryByID(Integer.parseInt(words[1]));
+                case 3 -> Category.addCategory(words[1]);
+                case 4 -> Category.removeCategory(Integer.parseInt(words[1]));
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
+
+            System.out.println();
         }
     }
 
@@ -97,7 +103,6 @@ public class Main {
 
             String choice = scanner.next();
             String[] words = choice.split(",");
-
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
@@ -108,7 +113,6 @@ public class Main {
                             words[3], Integer.parseInt(words[4]));
                 }
                 case 4 -> productService.removeProduct(Integer.parseInt(words[1]);
-
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
