@@ -10,11 +10,18 @@ public class Product {
     private final int quantity;
 
     public Product(int productId, double price, String name, Category category, int quantity) {
-        this.productId = productId;
-        this.price = price;
-        this.name = name;
-        this.category = category;
-        this.quantity = quantity;
+        if (validatePrice(price) &&
+                validateName(name) &&
+                validateCategory(category) &&
+                validateQuantity(quantity)) {
+            this.productId = productId;
+            this.price = price;
+            this.name = name;
+            this.category = category;
+            this.quantity = quantity;
+        } else {
+            throw new IllegalArgumentException("Nieprawidłowa cena, nazwa, kategoria lub ilość");
+        }
     }
 
     public int getProductId() {
@@ -37,11 +44,11 @@ public class Product {
         return quantity;
     }
 
-    public boolean validatePrice(double price) {
+    private boolean validatePrice(double price) {
         return price > 0;
     }
 
-    public boolean validateName(String name) {
+    private boolean validateName(String name) {
         return name != null &&
                 !name.isBlank() &&
                 name.length() > 0 &&
@@ -49,11 +56,11 @@ public class Product {
                 name.chars().allMatch(Character::isLetter);
     }
 
-    public boolean validateCategory(Category category) {
+    private boolean validateCategory(Category category) {
         return category != null;
     }
 
-    public boolean validateQuantity(int quantity) {
+    private boolean validateQuantity(int quantity) {
         return quantity > 0;
     }
 

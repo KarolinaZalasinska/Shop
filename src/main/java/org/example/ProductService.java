@@ -12,16 +12,9 @@ public class ProductService extends Product {
     }
 
     public void addProduct(double price, String name, Category category, int quantity) {
-        if (validatePrice(price) &&
-        validateName(name) &&
-        validateCategory(category) &&
-        validateQuantity(quantity)) {
-            Product product = new Product(nextProductId, price, name, category, quantity);
-            products.add(product);
-            nextProductId++;
-        } else {
-            throw new IllegalArgumentException("Nieprawidłowa cena, nazwa, kategoria lub ilość");
-        }
+        Product product = new Product(nextProductId, price, name, category, quantity);
+        products.add(product);
+        nextProductId++;
     }
 
     public void removeProduct(int productId) {
