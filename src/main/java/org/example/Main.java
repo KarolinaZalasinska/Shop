@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private ProductService productService;
-    private Category category;
-    private Order order;
+    private CategoryService categoryService;
+    private OrderService orderService;
 
     public void showMainMenu() {
         boolean exit = false;
@@ -50,13 +50,13 @@ public class Main {
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
-                case 1 -> Order.getAllOrders;
+                case 1 -> OrderService.getAllOrders;
                 case 2 -> ;
-                case 3 -> Order.addOrder(words[1]);
-                case 4 -> Order.removeOrderByNumber(words[1]);
+                case 3 -> OrderService.addOrder(words[1]);
+                case 4 -> OrderService.removeOrderByNumber(words[1]);
                 case 5 -> ;
-                case 6 -> Order.changeOrderStatus(words[1], words[2]);
-                case 7 -> Order.showOrderStatus(words[1]);
+                case 6 -> OrderService.changeOrderStatus(words[1], words[2]);
+                case 7 -> OrderService.showOrderStatus(words[1]);
                 case 8 -> ;
                 case 9 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
@@ -80,10 +80,10 @@ public class Main {
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
-                case 1 -> Category.getAllCategories;
-                case 2 -> Category.getCategoryByID(Integer.parseInt(words[1]));
-                case 3 -> Category.addCategory(words[1]);
-                case 4 -> Category.removeCategory(Integer.parseInt(words[1]));
+                case 1 -> CategoryService.getAllCategories;
+                case 2 -> CategoryService.getCategoryByID(Integer.parseInt(words[1]));
+                case 3 -> CategoryService.addCategory(words[1]);
+                case 4 -> CategoryService.removeCategory(Integer.parseInt(words[1]));
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
