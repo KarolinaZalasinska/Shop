@@ -1,4 +1,6 @@
-import org.shopProject.Product;
+package service;
+
+import model.Product;
 
 public final class ProductService extends Product {
 

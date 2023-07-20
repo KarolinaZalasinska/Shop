@@ -1,4 +1,4 @@
-package org.shopProject;
+package model;
 
 public enum OrderStatus {
     PAID,

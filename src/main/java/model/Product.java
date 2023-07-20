@@ -1,4 +1,4 @@
-package org.shopProject;
+package model;
 
 public class Product {
     protected int productId;
