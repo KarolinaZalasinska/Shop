@@ -2,12 +2,11 @@ package model;
 
 import java.util.Objects;
 
-public record Product(int productId, double price, String name, Category category, int quantity) {
+public record Product(int productId, double price, String name, Category category) {
     public Product {
         validatePrice(price);
         validateName(name);
         validateCategory(category);
-        validateQuantity(quantity);
     }
 
     private void validatePrice(double price) {
@@ -26,24 +25,5 @@ public record Product(int productId, double price, String name, Category categor
         if (category == null) {
             throw new IllegalArgumentException("Kategoria produktu nie może być pusta.");
         }
-    }
-
-    private void validateQuantity(int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Ilość produktu musi być większa od 0.");
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return productId == product.productId && Double.compare(product.price, price) == 0 && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(productId, price, name, category, quantity);
     }
 }
