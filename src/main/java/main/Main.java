@@ -1,4 +1,6 @@
-package org.example;
+package main;
+
+import service.ProductService;
 
 import java.util.Scanner;
 
@@ -50,14 +52,14 @@ public class Main {
 
             scanner.nextLine();
 
-            switch (Integer.parseInt(words[0])) {
-                case 1 -> ;
-                case 2 -> ;
-                case 3 -> ;
-                case 4 -> ;
-                case 5 -> back = true;
-                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
-            }
+//            switch (Integer.parseInt(words[0])) {
+//                case 1 -> ;
+//                case 2 -> ;
+//                case 3 -> ;
+//                case 4 -> ;
+//                case 5 -> back = true;
+//                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
+//            }
         }
     }
 
@@ -79,10 +81,10 @@ public class Main {
                 case 1 -> productService.getAllProducts();
                 case 2 -> productService.getProductById(Integer.parseInt(words[1]));
                 case 3 -> {
-                    productService.addProduct(Double.parseDouble(words[1]), words[2],
-                            words[3], Integer.parseInt(words[4]));
+//                    productService.addProduct(Double.parseDouble(words[1]), words[2],
+//                            words[3], Integer.parseInt(words[4]));
                 }
-                case 4 -> productService.removeProduct(Integer.parseInt(words[1]);
+                case 4 -> productService.removeProduct(Integer.parseInt(words[1]));
 
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
