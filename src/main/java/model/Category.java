@@ -4,16 +4,16 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public record Category(String name, int categoryID) {
-    private static final int nextCategoryID = 1;
+    private static int nextCategoryID = 1;
 
     public Category(String name, int categoryID) {
         this.name = name;
-        this.categoryID = categoryID;
+        this.categoryID =nextCategoryID++;
         validateCategoryName(name);
     }
 
     private void validateCategoryName(String name) {
-        if (name == null || !Pattern.matches("^[a-zA-Z]{1,50}+$", name)) { //isBlank() ??????????????
+        if (name == null || !Pattern.matches("^[a-zA-Z]{1,50}+$", name)) {
             throw new IllegalArgumentException("Nieprawidłowa nazwa kategorii.");
         }
     }

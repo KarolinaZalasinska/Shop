@@ -1,57 +1,49 @@
 package model;
 
-public class Product {
-    private final int productId;
-    private final double price;
-    private final String name;
-    private final Category category;
-    private final int quantity;
+import java.util.Objects;
 
-    public Product(int productId, double price, String name, Category category, int quantity) {
-        this.productId = productId;
-        this.price = price;
-        this.name = name;
-        this.category = category;
-        this.quantity = quantity;
+public record Product(int productId, double price, String name, Category category, int quantity) {
+    public Product {
+        validatePrice(price);
+        validateName(name);
+        validateCategory(category);
+        validateQuantity(quantity);
     }
 
-    public int getProductId() {
-        return productId;
+    private void validatePrice(double price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("Cena produktu musi być większa od 0.");
+        }
     }
 
-    public double getPrice() {
-        return price;
+    private void validateName(String name) {
+        if (name == null || !name.matches("^[a-zA-Z]{1,50}$")) {
+            throw new IllegalArgumentException("Nieprawidłowa nazwa produktu.");
+        }
     }
 
-    public String getName() {
-        return name;
+    private void validateCategory(Category category) {
+        if (category == null) {
+            throw new IllegalArgumentException("Kategoria produktu nie może być pusta.");
+        }
     }
 
-    public Category getCategory() {
-        return category;
+    private void validateQuantity(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Ilość produktu musi być większa od 0.");
+        }
     }
 
-    public int getQuantity() {
-        return quantity;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return productId == product.productId && Double.compare(product.price, price) == 0 && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(category, product.category);
     }
 
-    public boolean validatePrice(double price) {
-        return price > 0;
-    }
-
-    public boolean validateName(String name) {
-        return name != null &&
-                !name.isBlank() &&
-                name.length() > 0 &&
-                name.length() < 50 &&
-                name.chars().allMatch(Character::isLetter);
-    }
-
-    public boolean validateCategory(Category category) {
-        return category != null;
-    }
-
-    public boolean validateQuantity(int quantity) {
-        return quantity > 0;
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, price, name, category, quantity);
     }
 }
