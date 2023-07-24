@@ -3,7 +3,6 @@ package model;
 import java.util.regex.Pattern;
 
 public record Category(String name, int categoryID) {
-    //private static int nextCategoryID = 1; // Jak rozwiązać sprawę autoinkrementacji ?! Czy pole może być w CS ??
 
     public Category {
         validateName(name);

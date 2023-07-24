@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class CategoryService {
-    public static List<Category> categories = new ArrayList<>(); // Czy static ??
+    private List<Category> categories = new ArrayList<>();
     private int nextCategoryID = 1;
 
     private int generateCategoryId() {

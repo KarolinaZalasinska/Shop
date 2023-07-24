@@ -1,29 +1,14 @@
 package model;
 
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
-public record Order(int orderID, String orderNumber, double orderSum, String clientName, String clientSurname,
+public record Order(int orderID, String orderNumber, String clientName, String clientSurname,
                     String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
     public Order {
         validateClientName(clientName);
         validateClientSurname(clientSurname);
-        validateOrderSum(orderSum);
         validateClientAddress(clientAddress);
         validateProducts(products);
-    }
-
-    private static int nextOrderId = 1;
-
-    public String generateOrderNumber() {
-        return UUID.randomUUID().toString().substring(0, 8);
-    }
-
-    private void validateOrderSum(final double orderSum) {
-        if (!(0 < orderSum)) {
-            throw new IllegalArgumentException("Suma zamówienia powinna być większa od 0.");
-        }
     }
 
     private void validateClientName(final String clientName) {
@@ -53,6 +38,4 @@ public record Order(int orderID, String orderNumber, double orderSum, String cli
 
     public void setOrderStatus(OrderStatus orderStatus) {
     }
-
-    //public double orderSum(Map<Product, Integer> orderProducts) {}
 }
