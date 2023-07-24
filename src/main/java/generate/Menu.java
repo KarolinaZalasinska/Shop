@@ -113,3 +113,15 @@
 //            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
 //    Order order3 = new Order(3, orderNumber3, 89.99, "Hanna", "Malinowska",
 //            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
+
+//    public void changeOrderStatus(final String orderNumber, OrderStatus newStatus) {
+//        Order order = orders.stream()
+//                .filter(o -> o.orderNumber().equals(orderNumber)).findFirst().orElse(null);
+//        if (order != null) {
+//            order.setOrderStatus(newStatus);
+//            System.out.println("Zmieniono status zamówienia o numerze " + orderNumber + " na: " + newStatus);
+//        } else {
+//            System.out.println("Nie zmieniono statusu dla zamówienia o numerze: " + orderNumber
+//                    + ". Podany numer zamówienia nie istnieje, bądź jest nieprawidłowy.");
+//        }
+//
