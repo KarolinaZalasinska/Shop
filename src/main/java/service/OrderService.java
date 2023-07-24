@@ -10,7 +10,7 @@ import java.util.*;
 
 public class OrderService {
     private final List<Order> orders = new ArrayList<>();
-    private int nextOrderId = 1;
+    private int nextOrderId;
 
     private int generateOrderId() {
         return nextOrderId++;
