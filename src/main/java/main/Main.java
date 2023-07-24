@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
-    private ProductService productService;
-    private CategoryService categoryService;
-    private OrderService orderService;
+    private final ProductService productService = new ProductService();
+    private final CategoryService categoryService = new CategoryService();
+    private final OrderService orderService = new OrderService();
 
     public void showMainMenu() {
         boolean exit = false;
