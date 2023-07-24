@@ -1,5 +1,6 @@
 package main;
 
+import model.OrderStatus;
 import service.ProductService;
 import service.CategoryService;
 import service.OrderService;
@@ -52,7 +53,8 @@ public class Main {
                 case 1 -> orderService.getAllOrders();
                 case 2 -> orderService.findOrder(words[1]);
                 case 3 -> {
-//                    orderService.createAndAddOrder(words[1], words[2], words[3], words[4], words[5]);
+//                    orderService.createAndAddOrder(words[1], words[2], words[3],
+//                            OrderStatus.valueOf(words[4]), words[5]);
                 }
                 case 4 -> orderService.removeOrderByNumber(words[1]);
                 case 5 -> back = true;
@@ -93,9 +95,9 @@ public class Main {
         boolean back = false;
         while (!back) {
             System.out.println("[1] Lista produktów");
-            System.out.println("[2] Konkretny produkt");
-            System.out.println("[3] Dodaj produkt");
-            System.out.println("[4] Usuń produkt ");
+            System.out.println("[2,productId] Konkretny produkt");
+            System.out.println("[3,price,name,category] Dodaj produkt");
+            System.out.println("[4,productId] Usuń produkt ");
             System.out.println("[5] Cofnij");
 
             String choice = scanner.next();
