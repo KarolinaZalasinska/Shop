@@ -5,6 +5,7 @@ import service.ProductService;
 import service.CategoryService;
 import service.OrderService;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -41,7 +42,7 @@ public class Main {
         while (!back) {
             System.out.println("[1] Lista zamówień");
             System.out.println("[2,OrderNumber] Konkretne zamówienie");
-            System.out.println("[3,clientName,clientSurname,clientAddress,orderStatus,products] Dodaj zamówienie");
+            System.out.println("[3,clientName,clientSurname,clientAddress,orderStatus] Dodaj zamówienie");
             System.out.println("[4,OrderNumber] Usuń zamówienie");
             System.out.println("[5] Cofnij");
 
