@@ -5,10 +5,12 @@ import service.ProductService;
 import service.CategoryService;
 import service.OrderService;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+    public static void main(String[] args) {
+        new Main().showMainMenu();
+    }
     private final Scanner scanner = new Scanner(System.in);
     private final ProductService productService = new ProductService();
     private final CategoryService categoryService = new CategoryService();
