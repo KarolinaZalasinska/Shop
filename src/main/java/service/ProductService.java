@@ -5,7 +5,6 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductService {
     private List<Product> products = new ArrayList<>();
@@ -37,8 +36,7 @@ public class ProductService {
                 .findFirst()
                 .orElse(null);
     }
-
-    public int getLastUsedProductId() {
-        return lastUsedProductId;
-    }
+//    public int getLastUsedProductId() {
+//        return lastUsedProductId;
+//    }
 }

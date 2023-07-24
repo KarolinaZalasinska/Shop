@@ -97,3 +97,19 @@
 //        products.add(new Product(generateProductId(), 19.99, "Hat", categories.get(2)));
 //        return products;
 //        }
+
+//public List<Category> createCategories() {
+//        List<Category> categories = new ArrayList<>();
+
+//        categories.add(new Category("Clothes", generateCategoryId()));
+//        categories.add(new Category("Shoes", generateCategoryId()));
+//        categories.add(new Category("Accessories", generateCategoryId()));
+//        return categories;
+//        }
+
+//    Order order1 = new Order(1, orderNumber1, 579.99, "Anna", "Nowak",
+//            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
+//    Order order2 = new Order(2, orderNumber2, 389.99, "Jan", "Kowalski",
+//            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
+//    Order order3 = new Order(3, orderNumber3, 89.99, "Hanna", "Malinowska",
+//            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
