@@ -1,12 +1,16 @@
 package main;
 
 import service.ProductService;
+import service.CategoryService;
+import service.OrderService;
 
 import java.util.Scanner;
 
 public class Main {
     private final Scanner scanner = new Scanner(System.in);
     private ProductService productService;
+    private CategoryService categoryService;
+    private OrderService orderService;
 
     public void showMainMenu() {
         boolean exit = false;
@@ -34,7 +38,28 @@ public class Main {
     public void showOrderSubMenu() {
         boolean back = false;
         while (!back) {
+            System.out.println("[1] Lista zamówień");
+            System.out.println("[2,OrderNumber] Konkretne zamówienie");
+            System.out.println("[3,clientName,clientSurname,clientAddress,orderStatus,products] Dodaj zamówienie");
+            System.out.println("[4,OrderNumber] Usuń zamówienie");
+            System.out.println("[5] Cofnij");
 
+            String choice = scanner.next();
+            String[] words = choice.split(",");
+            scanner.nextLine();
+
+            switch (Integer.parseInt(words[0])) {
+                case 1 -> orderService.getAllOrders();
+                case 2 -> orderService.findOrder(words[1]);
+                case 3 -> {
+//                    orderService.createAndAddOrder(words[1], words[2], words[3], words[4], words[5]);
+                }
+                case 4 -> orderService.removeOrderByNumber(words[1]);
+                case 5 -> back = true;
+                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
+            }
+
+            System.out.println();
         }
     }
 
@@ -42,24 +67,25 @@ public class Main {
         boolean back = false;
         while (!back) {
             System.out.println("[1] Lista kategorii");
-            System.out.println("[2] Konkretna kategoria");
-            System.out.println("[3] Dodaj kategorie");
-            System.out.println("[4] Usuń kategorie");
+            System.out.println("[2,categoryID,categoryName] Konkretna kategoria");
+            System.out.println("[3,name] Dodaj kategorie");
+            System.out.println("[4,categoryID] Usuń kategorie");
             System.out.println("[5] Cofnij");
 
             String choice = scanner.next();
             String[] words = choice.split(",");
-
             scanner.nextLine();
 
-//            switch (Integer.parseInt(words[0])) {
-//                case 1 -> ;
-//                case 2 -> ;
-//                case 3 -> ;
-//                case 4 -> ;
-//                case 5 -> back = true;
-//                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
-//            }
+            switch (Integer.parseInt(words[0])) {
+                case 1 -> categoryService.getAllCategories();
+                case 2 -> categoryService.getCategoryByIdOrName(Integer.parseInt(words[1]),words[2]);
+                case 3 -> categoryService.createAndAddCategory(words[1]);
+                case 4 -> categoryService.removeCategory(Integer.parseInt(words[1]));
+                case 5 -> back = true;
+                default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
+            }
+
+            System.out.println();
         }
     }
 
@@ -74,15 +100,14 @@ public class Main {
 
             String choice = scanner.next();
             String[] words = choice.split(",");
-
             scanner.nextLine();
 
             switch (Integer.parseInt(words[0])) {
                 case 1 -> productService.getAllProducts();
                 case 2 -> productService.getProductById(Integer.parseInt(words[1]));
                 case 3 -> {
-//                    productService.addProduct(Double.parseDouble(words[1]), words[2],
-//                            words[3], Integer.parseInt(words[4]));
+//                    productService.createAndAddProduct(Double.parseDouble(words[1]), words[2],
+//                            words[3]);
                 }
                 case 4 -> productService.removeProduct(Integer.parseInt(words[1]));
 
