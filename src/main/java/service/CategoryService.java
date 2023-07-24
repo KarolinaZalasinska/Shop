@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class CategoryService {
-    private List<Category> categories = new ArrayList<>();
+    private final List<Category> categories = new ArrayList<>();
     private int nextCategoryID;
 
     private int generateCategoryId() {

@@ -9,8 +9,7 @@ import java.util.UUID;
 import java.util.*;
 
 public class OrderService {
-    private List<Order> orders = new ArrayList<>();
-    private Map<Product, Integer> productsMap = new HashMap<>();
+    private final List<Order> orders = new ArrayList<>();
     private int nextOrderId = 1;
 
     private int generateOrderId() {
