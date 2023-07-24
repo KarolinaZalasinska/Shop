@@ -23,13 +23,11 @@ public class OrderService {
 
     public Order createOrder(String clientName, String clientSurname,
                              String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
-        return new Order(generateOrderId(), generateOrderNumber(), clientName, clientSurname, clientAddress,
+        Order addNewOrder = new Order(generateOrderId(), generateOrderNumber(), clientName, clientSurname, clientAddress,
                 orderStatus, products);
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-        System.out.println("Dodano nowe zamówienie o numerze: " + order.orderNumber() + " i ID: " + order.orderID());
+        orders.add(addNewOrder);
+        System.out.println("Dodano nowe zamówienie o numerze: " + generateOrderNumber() + " i ID: " + generateOrderId());
+        return addNewOrder;
     }
 
     public void removeOrderByNumber(final String orderNumber) {
