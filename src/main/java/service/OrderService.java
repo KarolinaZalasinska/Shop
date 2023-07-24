@@ -6,27 +6,22 @@ import model.Product;
 
 import java.util.*;
 
-public final class OrderService {
-    private final List<Order> orders;
+public class OrderService {
+    private List<Order> orders = new ArrayList<>();
     Map<Product, Integer> productsMap = new HashMap<>();
-//productsMap.put(newProduct(1,100.0,"Product 1",category1, 10), 5);
-//productsMap.put(new Product(2,200.0,"Product 2",category2, 20), 3);
-
-    public OrderService() {
-        this.orders = new ArrayList<>();
+    private int lastUsedOrderId;
+    private String lastUsedOrderNumber;
+    private int generateOrderId() {
+        return lastUsedOrderId;
     }
 
-    String orderNumber1 = UUID.randomUUID().toString().substring(0, 8);
-    String orderNumber2 = UUID.randomUUID().toString().substring(0, 8);
-    String orderNumber3 = UUID.randomUUID().toString().substring(0, 8);
+    private String generateOrderNumber() { return lastUsedOrderNumber; }
 
-    Order order1 = new Order(1, orderNumber1, 579.99, "Anna", "Nowak",
-            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
-    Order order2 = new Order(2, orderNumber2, 389.99, "Jan", "Kowalski",
-            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
-    Order order3 = new Order(3, orderNumber3, 89.99, "Hanna", "Malinowska",
-            "Kryształowa 7", OrderStatus.SHIPPED, productsMap);
-
+    public Order createOrder(String number, double orderSum, String clientName, String clientSurname,
+                             String clientAddress, OrderStatus orderStatus, Map products) {
+        return new Order(generateOrderId(), generateOrderNumber(), orderSum, clientName, clientSurname, clientAddress,
+                orderStatus, productsMap);
+    }
 
     public void addOrder(Order order) {
         orders.add(order);

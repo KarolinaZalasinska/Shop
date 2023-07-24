@@ -16,7 +16,7 @@ public record Order(int orderID, String orderNumber, double orderSum, String cli
 
     private static int nextOrderId = 1;
 
-    public static String generateOrderNumber() {
+    public String generateOrderNumber() {
         return UUID.randomUUID().toString().substring(0, 8);
     }
 
@@ -54,26 +54,5 @@ public record Order(int orderID, String orderNumber, double orderSum, String cli
     public void setOrderStatus(OrderStatus orderStatus) {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return orderID == order.orderID && Double.compare(order.orderSum, orderSum) == 0
-                && Objects.equals(orderNumber, order.orderNumber) && Objects.equals(clientName, order.clientName)
-                && Objects.equals(clientSurname, order.clientSurname)
-                && Objects.equals(clientAddress, order.clientAddress)
-                && orderStatus == order.orderStatus
-                && Objects.equals(products, order.products);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderID, orderNumber, orderSum, clientName, clientSurname,
-                clientAddress, orderStatus, products);
-    }
-
-    public double orderSum(Map<Product, Integer> orderProducts) {
-        return 0;
-    }
+    //public double orderSum(Map<Product, Integer> orderProducts) {}
 }
