@@ -59,7 +59,7 @@ public class Main {
 //                    System.out.println(orderService.createAndAddOrder(words[1], words[2], words[3],
 //                            OrderStatus.valueOf(words[4]), words[5]));
                 }
-                case 4 -> System.out.println(orderService.removeOrderByNumber(words[1]));
+                case 4 -> orderService.removeOrderByNumber(words[1]);
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
@@ -84,8 +84,8 @@ public class Main {
             switch (Integer.parseInt(words[0])) {
                 case 1 -> System.out.println(categoryService.getAllCategories());
                 case 2 -> System.out.println(categoryService.getCategoryByIdOrName(Integer.parseInt(words[1]),words[2]));
-                case 3 -> System.out.println(categoryService.createAndAddCategory(words[1]));
-                case 4 -> System.out.println(categoryService.removeCategory(Integer.parseInt(words[1])));
+                case 3 -> categoryService.createAndAddCategory(words[1]);
+                case 4 -> categoryService.removeCategory(Integer.parseInt(words[1]));
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
@@ -114,7 +114,7 @@ public class Main {
 //                    System.out.println(productService.createAndAddProduct(Double.parseDouble(words[1]), words[2],
 //                            words[3]));
                 }
-                case 4 -> System.out.println(productService.removeProduct(Integer.parseInt(words[1])));
+                case 4 -> productService.removeProduct(Integer.parseInt(words[1]));
                 case 5 -> back = true;
                 default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
             }
