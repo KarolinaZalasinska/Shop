@@ -4,23 +4,27 @@ import model.Order;
 import model.OrderStatus;
 import model.Product;
 
+import java.util.UUID;
+
 import java.util.*;
 
 public class OrderService {
     private List<Order> orders = new ArrayList<>();
-    Map<Product, Integer> productsMap = new HashMap<>();
-    private int lastUsedOrderId;
-    private String lastUsedOrderNumber;
+    private Map<Product, Integer> productsMap = new HashMap<>();
+    private int nextOrderId = 1;
+
     private int generateOrderId() {
-        return lastUsedOrderId;
+        return nextOrderId++;
     }
 
-    private String generateOrderNumber() { return lastUsedOrderNumber; }
+    private String generateOrderNumber() {
+        return UUID.randomUUID().toString().substring(0, 8);
+    }
 
-    public Order createOrder(String number, double orderSum, String clientName, String clientSurname,
-                             String clientAddress, OrderStatus orderStatus, Map products) {
-        return new Order(generateOrderId(), generateOrderNumber(), orderSum, clientName, clientSurname, clientAddress,
-                orderStatus, productsMap);
+    public Order createOrder(String clientName, String clientSurname,
+                             String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
+        return new Order(generateOrderId(), generateOrderNumber(), clientName, clientSurname, clientAddress,
+                orderStatus, products);
     }
 
     public void addOrder(Order order) {
