@@ -14,16 +14,13 @@ public class ProductService {
         return lastUsedProductId++;
     }
 
-    public Product createProduct(double price, String name, Category category) {
-        return new Product(generateProductId(), price, name, category);
+    public Product createAndAddProduct(double price, String name, Category category) {
+         Product newProduct = new Product(generateProductId(), price, name, category);
+         products.add(newProduct);
+         return newProduct;
     }
-
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
-    public void removeProduct(int productId) {
-        products.removeIf(p -> p.productId() == productId);
+    public boolean removeProduct(int productId) {
+        return products.removeIf(product -> product.productId() == productId);
     }
 
     public List<Product> getAllProducts() {
@@ -36,7 +33,4 @@ public class ProductService {
                 .findFirst()
                 .orElse(null);
     }
-//    public int getLastUsedProductId() {
-//        return lastUsedProductId;
-//    }
 }

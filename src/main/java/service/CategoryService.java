@@ -7,23 +7,20 @@ import java.util.List;
 
 public final class CategoryService {
     private List<Category> categories = new ArrayList<>();
-    private int nextCategoryID = 1;
+    private int nextCategoryID;
 
     private int generateCategoryId() {
         return nextCategoryID++;
     }
 
-    public Category createCategory(String name) {
-        return new Category(name, generateCategoryId());
-    }
-
-    public void addCategory(String name) {
-        Category newCategory = new Category(name, categories.size() + 1);
+    public Category createAndAddCategory(String name) {
+        Category newCategory = new Category(name, generateCategoryId());
         categories.add(newCategory);
+        return newCategory;
     }
 
-    public void removeCategory(int categoryID) {
-        categories.removeIf(c -> c.categoryID() == categoryID);
+    public boolean removeCategory(int categoryIdToRemove) {
+        return categories.removeIf(category -> category.categoryID() == categoryIdToRemove);
     }
 
     public List<Category> getAllCategories() {
