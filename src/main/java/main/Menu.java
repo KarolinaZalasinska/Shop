@@ -1,20 +1,55 @@
 package main;
 
+import model.Category;
+import model.Order;
 import model.OrderStatus;
+import model.Product;
 import service.ProductService;
 import service.CategoryService;
 import service.OrderService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        new Main().showMainMenu();
-    }
+public class Menu {
+
     private final Scanner scanner = new Scanner(System.in);
     private final ProductService productService = new ProductService();
     private final CategoryService categoryService = new CategoryService();
     private final OrderService orderService = new OrderService();
+
+    {
+        createCategories();
+        createProducts(); //blok inicjaliz. danych
+    }
+
+    public void createCategories() {
+        categoryService.createAndAddCategory("Clothing");
+        categoryService.createAndAddCategory("Footwear");
+        categoryService.createAndAddCategory("Accessories");
+    }
+
+    public void createProducts() {
+        productService.createAndAddProduct(199.99, "Dress", categoryService.getAllCategories().get(0));
+        productService.createAndAddProduct(149.99, "Heels", categoryService.getAllCategories().get(1));
+        productService.createAndAddProduct(39.99, "Cap", categoryService.getAllCategories().get(2));
+        productService.createAndAddProduct(79.99, "Trousers", categoryService.getAllCategories().get(1));
+        productService.createAndAddProduct(249.99, "Sneakers", categoryService.getAllCategories().get(1));
+        productService.createAndAddProduct(19.99, "Hat", categoryService.getAllCategories().get(2));
+        productService.createAndAddProduct(79.99, "Earrings", categoryService.getAllCategories().get(2));
+    }
+
+    public void changeOrderStatus(final String orderNumber, OrderStatus newStatus) {
+        Order order = orderService.findOrder(orderNumber);
+        if (order != null) {
+            order.setOrderStatus(newStatus);
+            System.out.println("Zmieniono status zamówienia o numerze " + orderNumber + " na: " + newStatus);
+        } else {
+            System.out.println("Nie zmieniono statusu dla zamówienia o numerze: " + orderNumber
+                    + ". Podany numer zamówienia nie istnieje, bądź jest nieprawidłowy.");
+        }
+    }
 
     public void showMainMenu() {
         boolean exit = false;
@@ -83,7 +118,8 @@ public class Main {
 
             switch (Integer.parseInt(words[0])) {
                 case 1 -> System.out.println(categoryService.getAllCategories());
-                case 2 -> System.out.println(categoryService.getCategoryByIdOrName(Integer.parseInt(words[1]),words[2]));
+                case 2 ->
+                        System.out.println(categoryService.getCategoryByIdOrName(Integer.parseInt(words[1]), words[2]));
                 case 3 -> categoryService.createAndAddCategory(words[1]);
                 case 4 -> categoryService.removeCategory(Integer.parseInt(words[1]));
                 case 5 -> back = true;
@@ -123,5 +159,3 @@ public class Main {
         }
     }
 }
-
-
