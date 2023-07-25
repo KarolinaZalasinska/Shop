@@ -30,12 +30,12 @@ public class Menu {
         productsMap.put(productService.getProductById(3), 2);
         productsMap.put(productService.getProductById(4), 4);
 
-//        Order order1 = new Order(1, "47859785", "Anna", "Nowak",
-//                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.SHIPPED, productsMap);
-//        Order order2 = new Order(2, "15241633", "Jan", "Nowak",
-//                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.PAID, productsMap);
-//        Order order3 = new Order(3, "36254987", "Katarzyna", "Kowalska",
-//                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.PREPARING, productsMap);
+        Order order1 = new Order(1, "47859785", "Anna", "Nowak",
+                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.SHIPPED, productsMap);
+        Order order2 = new Order(2, "15241633", "Jan", "Nowak",
+                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.PAID, productsMap);
+        Order order3 = new Order(3, "36254987", "Katarzyna", "Kowalska",
+                "Kryształowa 7, 48 - 300 Nysa", OrderStatus.PREPARING, productsMap);
 
         orderService.createAndAddOrder("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa",
                 OrderStatus.PREPARING, productsMap);
