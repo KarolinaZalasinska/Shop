@@ -14,3 +14,9 @@ public record Category(String name, int categoryID) {
         }
     }
 }
+
+//    lub boolean
+//
+//    public boolean validateName(String name) {
+//        return name != null && Pattern.matches("^[a-zA-Z]{1,50}+$", name);
+//    }
