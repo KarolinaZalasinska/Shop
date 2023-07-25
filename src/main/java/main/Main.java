@@ -1,4 +1,4 @@
-package generate;
+package main;
 
 import main.Menu;
 import model.Category;
