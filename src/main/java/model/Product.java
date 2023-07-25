@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Objects;
-
 public record Product(int productId, double price, String name, Category category) {
     public Product {
         validatePrice(price);

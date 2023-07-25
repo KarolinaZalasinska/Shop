@@ -15,10 +15,11 @@ public class ProductService {
     }
 
     public Product createAndAddProduct(double price, String name, Category category) {
-         Product newProduct = new Product(generateProductId(), price, name, category);
-         products.add(newProduct);
-         return newProduct;
+        Product newProduct = new Product(generateProductId(), price, name, category);
+        products.add(newProduct);
+        return newProduct;
     }
+
     public boolean removeProduct(int productId) {
         return products.removeIf(product -> product.productId() == productId);
     }
