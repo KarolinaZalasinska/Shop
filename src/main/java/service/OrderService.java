@@ -4,9 +4,10 @@ import model.Order;
 import model.OrderStatus;
 import model.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
-import java.util.*;
 
 public class OrderService {
     private final List<Order> orders = new ArrayList<>();
@@ -21,7 +22,7 @@ public class OrderService {
     }
 
     public Order createAndAddOrder(String clientName, String clientSurname,
-                             String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
+                                   String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
         Order addNewOrder = new Order(generateOrderId(), generateOrderNumber(), clientName, clientSurname, clientAddress,
                 orderStatus, products);
         orders.add(addNewOrder);
@@ -30,7 +31,7 @@ public class OrderService {
 
     public boolean removeOrderByNumber(String orderNumberToRemove) {
         return orders.removeIf(order -> order.orderNumber().equals(orderNumberToRemove));
-        }
+    }
 
     public List<Order> getAllOrders() {
         return new ArrayList<>(orders);

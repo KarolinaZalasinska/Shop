@@ -1,14 +1,15 @@
 package main;
 
-import model.Category;
 import model.Order;
 import model.OrderStatus;
 import model.Product;
-import service.ProductService;
 import service.CategoryService;
 import service.OrderService;
+import service.ProductService;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Menu {
 
