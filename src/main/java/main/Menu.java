@@ -1,5 +1,6 @@
 package main;
 
+import model.Customer;
 import model.Order;
 import model.OrderStatus;
 import model.Product;
@@ -22,6 +23,7 @@ public class Menu {
 		createCategories();
 		createProducts(); //blok inicjaliz. danych
 		createOrders();
+
 	}
 
 	public void createOrders() {
@@ -31,21 +33,15 @@ public class Menu {
 		productsMap.put(productService.getProductById(3), 2);
 		productsMap.put(productService.getProductById(4), 4);
 
-		final Order order1 = new Order(1, "47859785", "Anna", "Nowak",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.SHIPPED, productsMap);
-		final Order order2 = new Order(2, "15241633", "Jan", "Nowak",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.PAID, productsMap);
-		final Order order3 = new Order(3, "36254987", "Katarzyna", "Kowalska",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.PREPARING, productsMap);
+		final Customer customer1 = new Customer("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
+		final Customer customer2 = new Customer("Adam", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
+		final Customer customer3 = new Customer("Tomasz", "Kowalski", "Lazurowa 1, 48 - 300 Nysa");
+		final Customer customer4 = new Customer("Joanna", "Kowalska", "Lazurowa 1, 48 - 300 Nysa");
 
-		orderService.createAndAddOrder("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa",
-				OrderStatus.PREPARING, productsMap);
-		orderService.createAndAddOrder("Adam", "Nowak", "Kryształowa 7, 48 - 300 Nysa",
-				OrderStatus.PAID, productsMap);
-		orderService.createAndAddOrder("Tomasz", "Kowalski", "Bukszpanowa 1, 48 - 300 Nysa",
-				OrderStatus.SHIPPED, productsMap);
-		orderService.createAndAddOrder("Joanna", "Kowalska", "Bukszpanowa 1, 48 - 300 Nysa",
-				OrderStatus.PREPARING, productsMap);
+		orderService.createAndAddOrder(customer1, OrderStatus.PREPARING, productsMap);
+		orderService.createAndAddOrder(customer2, OrderStatus.PAID, productsMap);
+		orderService.createAndAddOrder(customer3, OrderStatus.SHIPPED, productsMap);
+		orderService.createAndAddOrder(customer4, OrderStatus.PREPARING, productsMap);
 	}
 
 	public void createCategories() {

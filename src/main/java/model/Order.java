@@ -2,8 +2,8 @@ package model;
 
 import java.util.Map;
 
-public record Order(int orderID, String orderNumber, String clientName, String clientSurname,
-					String clientAddress, OrderStatus orderStatus, Map<Product, Integer> products) {
+public record Order(int orderID, String orderNumber, Customer customer, OrderStatus orderStatus,
+					Map<Product, Integer> products) {
 	public Order {
 		validateProducts(products);
 	}

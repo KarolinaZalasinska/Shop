@@ -9,14 +9,8 @@ public record Category(String name, int categoryID) {
 	}
 
 	private void validateName(final String name) {
-		if (name == null || !Pattern.matches("^[a-zA-Z]{1,50}+$", name)) {
+		if (name == null || !Pattern.matches("^[a-zA-Z]{1,50}$", name)) {
 			throw new IllegalArgumentException("Nieprawidłowa nazwa kategorii.");
 		}
 	}
 }
-
-//    lub boolean
-//
-//    public boolean validateName(String name) {
-//        return name != null && Pattern.matches("^[a-zA-Z]{1,50}+$", name);
-//    }
