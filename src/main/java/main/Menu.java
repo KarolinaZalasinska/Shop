@@ -1,7 +1,6 @@
 package main;
 
 import model.Customer;
-import model.Order;
 import model.OrderStatus;
 import model.Product;
 import service.CategoryService;
@@ -28,10 +27,10 @@ public class Menu {
 
 	public void createOrders() {
 		final Map<Product, Integer> productsMap = new HashMap<>();
-		productsMap.put(productService.getProductById(1), 2);
+		productsMap.put(productService.getProductById(1), 5);
 		productsMap.put(productService.getProductById(2), 3);
 		productsMap.put(productService.getProductById(3), 2);
-		productsMap.put(productService.getProductById(4), 4);
+		productsMap.put(productService.getProductById(4), 1);
 
 		final Customer customer1 = new Customer("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
 		final Customer customer2 = new Customer("Adam", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
@@ -60,21 +59,11 @@ public class Menu {
 		productService.createAndAddProduct(79.99, "Earrings", categoryService.getAllCategories().get(2));
 	}
 
-	public void changeOrderStatus(final String orderNumber, final OrderStatus newStatus) {
-		final Order order = orderService.findOrder(orderNumber);
-		if (order != null) {
-			order.setOrderStatus(newStatus);
-			System.out.println("Zmieniono status zamówienia o numerze " + orderNumber + " na: " + newStatus);
-		} else {
-			System.out.println("Nie zmieniono statusu dla zamówienia o numerze: " + orderNumber
-					+ ". Podany numer zamówienia nie istnieje, bądź jest nieprawidłowy.");
-		}
-	}
 
 	public void showMainMenu() {
 		boolean exit = false;
 		while (!exit) {
-			System.out.println("[1] Zamówiena");
+			System.out.println("[1] Zamówienia");
 			System.out.println("[2] Kategorie produktów");
 			System.out.println("[3] Produkty");
 			System.out.println("[4] Wyjdź");
@@ -99,23 +88,54 @@ public class Menu {
 		while (!back) {
 			System.out.println("[1] Lista zamówień");
 			System.out.println("[2,OrderNumber] Konkretne zamówienie");
-			System.out.println("[3,clientName,clientSurname,clientAddress,orderStatus] Dodaj zamówienie");
-			System.out.println("[4,OrderNumber] Usuń zamówienie");
-			System.out.println("[5] Cofnij");
+			System.out.println("[3] Utwórz i dodaj zamówienie");
+			System.out.println("[4,OrderNumber] Zmień status zamówienia");
+			System.out.println("[5,OrderNumber] Usuń zamówienie");
+			System.out.println("[6] Cofnij");
 
-			final String choice = scanner.next();
+			final String choice = scanner.nextLine();
 			final String[] words = choice.split(",");
-			scanner.nextLine();
 
 			switch (Integer.parseInt(words[0])) {
 				case 1 -> System.out.println(orderService.getAllOrders());
 				case 2 -> System.out.println(orderService.findOrder(words[1]));
 				case 3 -> {
-//                    System.out.println(orderService.createAndAddOrder(words[1], words[2], words[3],
-//                            OrderStatus.valueOf(words[4]), words[5]));
+					System.out.println("Podaj imię klienta:");
+					final String firstName = scanner.nextLine();
+
+					System.out.println("Podaj nazwisko klienta:");
+					final String lastName = scanner.nextLine();
+
+					System.out.println("Podaj adres klienta:");
+					final String address = scanner.nextLine();
+
+					System.out.println("Podaj status zamówienia (PREPARING, PAID, SHIPPED, CANCELED): ");
+					final OrderStatus orderStatus = OrderStatus.valueOf(scanner.nextLine());
+
+					final Customer customer = new Customer(firstName, lastName, address);
+
+					final Map<Product, Integer> productsMap = new HashMap<>();
+
+					orderService.createAndAddOrder(customer, orderStatus, productsMap);
 				}
-				case 4 -> orderService.removeOrderByNumber(words[1]);
-				case 5 -> back = true;
+				case 4 -> {
+					System.out.println("Podaj numer zamówienia: ");
+					final String orderNumber = scanner.nextLine();
+
+					System.out.println("Podaj nowy status zamówienia (PREPARING, PAID, SHIPPED, CANCELED, ): ");
+					final OrderStatus newStatus = OrderStatus.valueOf(scanner.nextLine());
+
+					if (orderService.changeOrderStatus(orderNumber, newStatus)) {
+						System.out.println("Status zamówienia został zmieniony.");
+					} else {
+						System.out.println("Nie udało się zmienić statusu zamówienia. Sprawdź poprawność numeru zamówienia.");
+					}
+				}
+				case 5 -> {
+					orderService.removeOrderByNumber(words[1]);
+					System.out.println("Zamówienie o numerze " + words[1] + " zostało usunięte.");
+				}
+				case 6 -> back = true;
 				default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
 			}
 
