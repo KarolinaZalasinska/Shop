@@ -1,8 +1,8 @@
 package model;
 
 public enum OrderStatus {
-    PAID,
-    CANCELED,
-    SHIPPED,
-    PREPARING
+	PAID,
+	CANCELED,
+	SHIPPED,
+	PREPARING
 }
