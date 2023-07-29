@@ -40,10 +40,10 @@ public class Menu {
 		final Customer customer3 = new Customer("Tomasz", "Kowalski", "Lazurowa 1, 48 - 300 Nysa");
 		final Customer customer4 = new Customer("Joanna", "Kowalska", "Lazurowa 1, 48 - 300 Nysa");
 
-		orderService.createAndAddOrder(customer1, OrderStatus.PREPARING, productsMap);
-		orderService.createAndAddOrder(customer2, OrderStatus.PAID, productsMap);
-		orderService.createAndAddOrder(customer3, OrderStatus.SHIPPED, productsMap);
-		orderService.createAndAddOrder(customer4, OrderStatus.PREPARING, productsMap);
+		orderService.createAndAddOrder(customer1, OrderStatus.PREPARING, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer2, OrderStatus.PAID, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer3, OrderStatus.SHIPPED, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer4, OrderStatus.PREPARING, new HashMap<>(productsMap));
 	}
 
 	public void createCategories() {
@@ -103,8 +103,7 @@ public class Menu {
 			switch (Integer.parseInt(words[0])) {
 				case 1 -> System.out.println(orderService.getAllOrders());
 				case 2 -> {
-					final int orderNumberIndex = 1;
-					final Order order = orderService.findOrder(words[orderNumberIndex]);
+					final Order order = orderService.findOrder(words[1]);
 					if (order != null) {
 						System.out.println(order);
 					} else {
@@ -142,20 +141,18 @@ public class Menu {
 					System.out.println("Dodano nowe zamówienie.");
 				}
 				case 4 -> {
-					final int orderNumberIndex = 1;
-					final boolean orderRemoved = orderService.removeOrderByNumber(words[orderNumberIndex]);
+					final boolean orderRemoved = orderService.removeOrderByNumber(words[1]);
 					if (orderRemoved) {
-						System.out.println("Usunięto zamówienie o numerze: " + words[orderNumberIndex]);
+						System.out.println("Usunięto zamówienie o numerze: " + words[1]);
 					} else {
 						System.out.println("Zamówienie o podanym numerze nie istnieje.");
 					}
 				}
 				case 5 -> {
-					final int orderNumberIndex = 1;
-					final OrderStatus newStatus = OrderStatus.valueOf(words[2].toUpperCase());
-					final boolean updated = orderService.updatedOrderStatus(words[orderNumberIndex], newStatus);
+					final OrderStatus newStatus = OrderStatus.valueOf(words[1].toUpperCase());
+					final boolean updated = orderService.updatedOrderStatus(words[1], newStatus);
 					if (updated) {
-						System.out.println("Zaktualizowano status zamówienia o numerze: " + words[orderNumberIndex]);
+						System.out.println("Zaktualizowano status zamówienia o numerze: " + words[1]);
 					} else {
 						System.out.println("Zamówienie o podanym numerze nie istnieje.");
 					}
