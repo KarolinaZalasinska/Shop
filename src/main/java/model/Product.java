@@ -13,27 +13,16 @@ public record Product(int productId, double price, String name, Category categor
 		}
 	}
 
-//    private boolean validatePrice(double price) {
-//        return price > 0;
-//    }
-
 	private void validateName(final String name) {
 		if (name == null || !name.matches("^[a-zA-Z]{1,50}$")) {
 			throw new IllegalArgumentException("Nieprawidłowa nazwa produktu.");
 		}
 	}
 
-//    private boolean validateName(String name) {
-//        return name != null && name.matches("^[a-zA-Z]{1,50}$");
-//    }
 
 	private void validateCategory(final Category category) {
 		if (category == null) {
 			throw new IllegalArgumentException("Kategoria produktu nie może być pusta.");
 		}
 	}
-
-//    private boolean validateCategory(Category category){
-//        return category != null;
-//    }
 }

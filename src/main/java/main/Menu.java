@@ -1,5 +1,7 @@
 package main;
 
+import model.Category;
+import model.Customer;
 import model.Order;
 import model.OrderStatus;
 import model.Product;
@@ -7,6 +9,7 @@ import service.CategoryService;
 import service.OrderService;
 import service.ProductService;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -22,30 +25,25 @@ public class Menu {
 		createCategories();
 		createProducts(); //blok inicjaliz. danych
 		createOrders();
+
 	}
 
 	public void createOrders() {
 		final Map<Product, Integer> productsMap = new HashMap<>();
-		productsMap.put(productService.getProductById(1), 2);
-		productsMap.put(productService.getProductById(2), 3);
-		productsMap.put(productService.getProductById(3), 2);
-		productsMap.put(productService.getProductById(4), 4);
+		productsMap.put(productService.getProductByIdOrName(1, "Dress"), 5);
+		productsMap.put(productService.getProductByIdOrName(2, "Heels"), 3);
+		productsMap.put(productService.getProductByIdOrName(3, "Cap"), 2);
+		productsMap.put(productService.getProductByIdOrName(4, "Earrings"), 1);
 
-		final Order order1 = new Order(1, "47859785", "Anna", "Nowak",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.SHIPPED, productsMap);
-		final Order order2 = new Order(2, "15241633", "Jan", "Nowak",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.PAID, productsMap);
-		final Order order3 = new Order(3, "36254987", "Katarzyna", "Kowalska",
-				"Kryształowa 7, 48 - 300 Nysa", OrderStatus.PREPARING, productsMap);
+		final Customer customer1 = new Customer("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
+		final Customer customer2 = new Customer("Adam", "Nowak", "Kryształowa 7, 48 - 300 Nysa");
+		final Customer customer3 = new Customer("Tomasz", "Kowalski", "Lazurowa 1, 48 - 300 Nysa");
+		final Customer customer4 = new Customer("Joanna", "Kowalska", "Lazurowa 1, 48 - 300 Nysa");
 
-		orderService.createAndAddOrder("Anna", "Nowak", "Kryształowa 7, 48 - 300 Nysa",
-				OrderStatus.PREPARING, productsMap);
-		orderService.createAndAddOrder("Adam", "Nowak", "Kryształowa 7, 48 - 300 Nysa",
-				OrderStatus.PAID, productsMap);
-		orderService.createAndAddOrder("Tomasz", "Kowalski", "Bukszpanowa 1, 48 - 300 Nysa",
-				OrderStatus.SHIPPED, productsMap);
-		orderService.createAndAddOrder("Joanna", "Kowalska", "Bukszpanowa 1, 48 - 300 Nysa",
-				OrderStatus.PREPARING, productsMap);
+		orderService.createAndAddOrder(customer1, OrderStatus.PREPARING, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer2, OrderStatus.PAID, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer3, OrderStatus.SHIPPED, new HashMap<>(productsMap));
+		orderService.createAndAddOrder(customer4, OrderStatus.PREPARING, new HashMap<>(productsMap));
 	}
 
 	public void createCategories() {
@@ -64,21 +62,11 @@ public class Menu {
 		productService.createAndAddProduct(79.99, "Earrings", categoryService.getAllCategories().get(2));
 	}
 
-	public void changeOrderStatus(final String orderNumber, final OrderStatus newStatus) {
-		final Order order = orderService.findOrder(orderNumber);
-		if (order != null) {
-			order.setOrderStatus(newStatus);
-			System.out.println("Zmieniono status zamówienia o numerze " + orderNumber + " na: " + newStatus);
-		} else {
-			System.out.println("Nie zmieniono statusu dla zamówienia o numerze: " + orderNumber
-					+ ". Podany numer zamówienia nie istnieje, bądź jest nieprawidłowy.");
-		}
-	}
 
 	public void showMainMenu() {
 		boolean exit = false;
 		while (!exit) {
-			System.out.println("[1] Zamówiena");
+			System.out.println("[1] Zamówienia");
 			System.out.println("[2] Kategorie produktów");
 			System.out.println("[3] Produkty");
 			System.out.println("[4] Wyjdź");
@@ -87,9 +75,9 @@ public class Menu {
 			scanner.nextLine();
 
 			switch (choice) {
-				case 1 -> showOrderSubMenu();
-				case 2 -> showCategorySubMenu();
-				case 3 -> showProductSubMenu();
+				case 1 -> showOrderServiceMenu();
+				case 2 -> showCategoryServiceMenu();
+				case 3 -> showProductServiceMenu();
 				case 4 -> exit = true;
 				default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
 			}
@@ -98,14 +86,15 @@ public class Menu {
 		}
 	}
 
-	public void showOrderSubMenu() {
+	public void showOrderServiceMenu() {
 		boolean back = false;
 		while (!back) {
 			System.out.println("[1] Lista zamówień");
-			System.out.println("[2,OrderNumber] Konkretne zamówienie");
-			System.out.println("[3,clientName,clientSurname,clientAddress,orderStatus] Dodaj zamówienie");
-			System.out.println("[4,OrderNumber] Usuń zamówienie");
-			System.out.println("[5] Cofnij");
+			System.out.println("[2,orderNumber] Konkretne zamówienie");
+			System.out.println("[3,firstName,lastName,address,orderStatus,productId1:quantity1,productId2:quantity2,...] Dodaj zamówienie");
+			System.out.println("[4,orderNumber] Usuń zamówienie");
+			System.out.println("[5,orderNumber,newStatus] Zaktualizuj status zamówienia");
+			System.out.println("[6] Cofnij");
 
 			final String choice = scanner.next();
 			final String[] words = choice.split(",");
@@ -113,13 +102,62 @@ public class Menu {
 
 			switch (Integer.parseInt(words[0])) {
 				case 1 -> System.out.println(orderService.getAllOrders());
-				case 2 -> System.out.println(orderService.findOrder(words[1]));
-				case 3 -> {
-//                    System.out.println(orderService.createAndAddOrder(words[1], words[2], words[3],
-//                            OrderStatus.valueOf(words[4]), words[5]));
+				case 2 -> {
+					final Order order = orderService.findOrder(words[1]);
+					if (order != null) {
+						System.out.println(order);
+					} else {
+						System.out.println("Zamówienie o podanym numerze nie istnieje.");
+					}
 				}
-				case 4 -> orderService.removeOrderByNumber(words[1]);
-				case 5 -> back = true;
+				case 3 -> {
+					if (words.length < 4) {
+						System.out.println("Nieprawidłowe dane. Podaj dane klienta, status zamówienia i co najmniej jeden produkt.");
+						break;
+					}
+
+					final String firstName = words[1];
+					final String lastName = words[2];
+					final String address = words[3];
+					final OrderStatus orderStatus = OrderStatus.valueOf(words[4].toUpperCase());
+
+					final Map<Product, Integer> productsMap = new HashMap<>();
+					Arrays.stream(words).skip(4).forEach(word -> {
+						final String[] productQuantity = word.split(":");
+						final int productId = Integer.parseInt(productQuantity[0]);
+						final String prod = productQuantity[1];
+						final int quantity = Integer.parseInt(productQuantity[2]);
+
+						final Product product = productService.getProductByIdOrName(productId, prod);
+						if (product != null) {
+							productsMap.put(product, quantity);
+						} else {
+							System.out.println("Produkt o ID/nazwie " + productId + "/" + prod + " nie istnieje.");
+						}
+					});
+
+					final Customer customer = new Customer(firstName, lastName, address);
+					orderService.createAndAddOrder(customer, orderStatus, productsMap);
+					System.out.println("Dodano nowe zamówienie.");
+				}
+				case 4 -> {
+					final boolean orderRemoved = orderService.removeOrderByNumber(words[1]);
+					if (orderRemoved) {
+						System.out.println("Usunięto zamówienie o numerze: " + words[1]);
+					} else {
+						System.out.println("Zamówienie o podanym numerze nie istnieje.");
+					}
+				}
+				case 5 -> {
+					final OrderStatus newStatus = OrderStatus.valueOf(words[1].toUpperCase());
+					final boolean updated = orderService.updatedOrderStatus(words[1], newStatus);
+					if (updated) {
+						System.out.println("Zaktualizowano status zamówienia o numerze: " + words[1]);
+					} else {
+						System.out.println("Zamówienie o podanym numerze nie istnieje.");
+					}
+				}
+				case 6 -> back = true;
 				default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
 			}
 
@@ -127,13 +165,14 @@ public class Menu {
 		}
 	}
 
-	public void showCategorySubMenu() {
+
+	public void showCategoryServiceMenu() {
 		boolean back = false;
 		while (!back) {
 			System.out.println("[1] Lista kategorii");
-			System.out.println("[2,categoryID,categoryName] Konkretna kategoria");
-			System.out.println("[3,name] Dodaj kategorie");
-			System.out.println("[4,categoryID] Usuń kategorie");
+			System.out.println("[2,categoryId,categoryName] Konkretna kategoria");
+			System.out.println("[3,name] Dodaj kategorię");
+			System.out.println("[4,categoryId] Usuń kategorię");
 			System.out.println("[5] Cofnij");
 
 			final String choice = scanner.next();
@@ -142,10 +181,36 @@ public class Menu {
 
 			switch (Integer.parseInt(words[0])) {
 				case 1 -> System.out.println(categoryService.getAllCategories());
-				case 2 ->
-						System.out.println(categoryService.getCategoryByIdOrName(Integer.parseInt(words[1]), words[2]));
-				case 3 -> categoryService.createAndAddCategory(words[1]);
-				case 4 -> categoryService.removeCategory(Integer.parseInt(words[1]));
+				case 2 -> {
+					final int categoryIdIndex = 1;
+					final int categoryNameIndex = 2;
+					final Category category = categoryService.getCategoryByIdOrName(
+							Integer.parseInt(words[categoryIdIndex]),
+							words[categoryNameIndex]);
+					if (category != null) {
+						System.out.println(category);
+					} else {
+						System.out.println("Kategoria o podanym ID lub nazwie nie istnieje.");
+					}
+				}
+				case 3 -> {
+					if (words.length < 2) {
+						System.out.println("Nieprawidłowe dane. Podaj nazwę kategorii.");
+						break;
+					}
+					final String name = words[1];
+					final Category newCategory = categoryService.createAndAddCategory(name);
+					System.out.println("Dodano nową kategorię: " + newCategory);
+				}
+				case 4 -> {
+					final int categoryIdIndex = 1;
+					final boolean categoryRemoved = categoryService.removeCategory(Integer.parseInt(words[categoryIdIndex]));
+					if (categoryRemoved) {
+						System.out.println("Usunięto kategorię o ID: " + words[categoryIdIndex]);
+					} else {
+						System.out.println("Kategoria o podanym ID nie istnieje.");
+					}
+				}
 				case 5 -> back = true;
 				default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
 			}
@@ -154,11 +219,12 @@ public class Menu {
 		}
 	}
 
-	public void showProductSubMenu() {
+
+	public void showProductServiceMenu() {
 		boolean back = false;
 		while (!back) {
 			System.out.println("[1] Lista produktów");
-			System.out.println("[2,productId] Konkretny produkt");
+			System.out.println("[2,productId,productName] Konkretny produkt");
 			System.out.println("[3,price,name,category] Dodaj produkt");
 			System.out.println("[4,productId] Usuń produkt ");
 			System.out.println("[5] Cofnij");
@@ -169,12 +235,43 @@ public class Menu {
 
 			switch (Integer.parseInt(words[0])) {
 				case 1 -> System.out.println(productService.getAllProducts());
-				case 2 -> System.out.println(productService.getProductById(Integer.parseInt(words[1])));
-				case 3 -> {
-//                    System.out.println(productService.createAndAddProduct(Double.parseDouble(words[1]), words[2],
-//                            words[3]));
+				case 2 -> {
+					final int productIdIndex = 1;
+					final int productNameIndex = 2;
+					final Product product = productService.getProductByIdOrName(
+							Integer.parseInt(words[productIdIndex]),
+							words[productNameIndex]);
+					if (product != null) {
+						System.out.println(product);
+					} else {
+						System.out.println("Produkt o podanym ID lub nazwie nie istnieje.");
+					}
 				}
-				case 4 -> productService.removeProduct(Integer.parseInt(words[1]));
+				case 3 -> {
+					if (words.length < 4) {
+						System.out.println("Nieprawidłowe dane. Podaj cenę, nazwę i kategorię produktu.");
+						break;
+					}
+					final double price = Double.parseDouble(words[1]);
+					final String name = words[2];
+					final String category = words[3];
+					final Category foundCategory = categoryService.getCategoryByIdOrName(0, category);
+					if (foundCategory == null) {
+						System.out.println("Kategoria o podanej nazwie nie istnieje.");
+						break;
+					}
+					productService.createAndAddProduct(price, name, foundCategory);
+					System.out.println("Dodano nowy produkt.");
+				}
+				case 4 -> {
+					final int productIdIndex = 1;
+					final boolean productRemoved = productService.removeProduct(Integer.parseInt(words[productIdIndex]));
+					if (productRemoved) {
+						System.out.println("Usunięto produkt o ID: " + words[productIdIndex]);
+					} else {
+						System.out.println("Produkt o podanym ID nie istnieje.");
+					}
+				}
 				case 5 -> back = true;
 				default -> System.out.println("Nieprawidłowy wybór. Spróbuj ponownie.");
 			}

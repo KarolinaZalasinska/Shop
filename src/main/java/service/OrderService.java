@@ -1,5 +1,6 @@
 package service;
 
+import model.Customer;
 import model.Order;
 import model.OrderStatus;
 import model.Product;
@@ -21,10 +22,8 @@ public class OrderService {
 		return UUID.randomUUID().toString().substring(0, 8);
 	}
 
-	public Order createAndAddOrder(final String clientName, final String clientSurname,
-								   final String clientAddress, final OrderStatus orderStatus, final Map<Product, Integer> products) {
-		final Order addNewOrder = new Order(generateOrderId(), generateOrderNumber(), clientName, clientSurname, clientAddress,
-				orderStatus, products);
+	public Order createAndAddOrder(final Customer customer, final OrderStatus orderStatus, final Map<Product, Integer> products) {
+		final Order addNewOrder = new Order(generateOrderId(), generateOrderNumber(), customer, orderStatus, products);
 		orders.add(addNewOrder);
 		return addNewOrder;
 	}
@@ -48,5 +47,21 @@ public class OrderService {
 				.filter(o -> o.orderNumber().equals(orderNumber))
 				.findFirst()
 				.orElse(null);
+	}
+
+	public boolean updatedOrderStatus(final String orderNumber, final OrderStatus newStatus) {
+		final Order order = findOrder(orderNumber);
+		if (order == null) {
+			return false;
+		}
+
+		final int index = orders.indexOf(order);
+		if (index == -1) {
+			return false;
+		}
+
+		final Order updatedOrder = order.withOrderStatus(newStatus);
+		orders.set(index, updatedOrder);
+		return true;
 	}
 }
