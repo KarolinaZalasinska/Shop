@@ -49,15 +49,19 @@ public class OrderService {
 				.orElse(null);
 	}
 
-	public boolean changeOrderStatus(final String orderNumber, final OrderStatus newStatus) {
+	public boolean updatedOrderStatus(final String orderNumber, final OrderStatus newStatus) {
 		final Order order = findOrder(orderNumber);
-		if (order != null) {
-			order.setOrderStatus(newStatus);
-			System.out.println("Zmieniono status zamówienia o numerze " + orderNumber + " na: " + newStatus);
-			return true;
+		if (order == null) {
+			return false;
 		}
-		System.out.println("Nie zmieniono statusu dla zamówienia o numerze: " + orderNumber
-				+ ". Podany numer zamówienia nie istnieje, bądź jest nieprawidłowy.");
-		return false;
+
+		final int index = orders.indexOf(order);
+		if (index == -1) {
+			return false;
+		}
+
+		final Order updatedOrder = order.withOrderStatus(newStatus);
+		orders.set(index, updatedOrder);
+		return true;
 	}
 }

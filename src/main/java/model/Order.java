@@ -15,6 +15,7 @@ public record Order(int orderID, String orderNumber, Customer customer, OrderSta
 		}
 	}
 
-	public void setOrderStatus(final OrderStatus orderStatus) {
+	public Order withOrderStatus(final OrderStatus newOrderStatus) {
+		return new Order(orderID, orderNumber, customer, orderStatus, products);
 	}
 }

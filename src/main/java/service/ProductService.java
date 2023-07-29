@@ -28,9 +28,9 @@ public class ProductService {
 		return new ArrayList<>(products);
 	}
 
-	public Product getProductById(final int productId) {
+	public Product getProductByIdOrName(final int productId, final String name) {
 		return products.stream()
-				.filter(product -> product.productId() == productId)
+				.filter(product -> product.productId() == productId || product.name().equals(name))
 				.findFirst()
 				.orElse(null);
 	}
